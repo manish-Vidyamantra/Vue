@@ -1,10 +1,13 @@
 <script setup>
-  const props = defineProps(['fullName'])
-  props.fullName = 'Bikash'
+
+import {ref, inject} from 'vue';
+const count = inject('count');
+  
 </script>
 
 <template>
-  <h1>{{ fullName }}</h1>
+  <h1>{{ count }}</h1>
+
 </template>
 
 <style scoped>

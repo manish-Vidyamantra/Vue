@@ -4,11 +4,11 @@
 </script>
 
 <template>
-  <h1>{{ fullName }}</h1>
+ <slot></slot>
 </template>
 
 <style scoped>
   h1 {
-    color: red;
+    color: blue;
   }
 </style>

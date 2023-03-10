@@ -1,9 +1,15 @@
 <script setup>
-  defineProps(['fullName']);
+
+let props = defineProps({
+    firstName: String,
+    lastName: Number
+  });
+ 
+  
 </script>
 
 <template>
-  <h1>{{ fullName }}</h1>
+  <h1>{{ firstName }} {{ lastName }}</h1>
 </template>
 
 <style scoped>
