@@ -13,7 +13,7 @@ function handleClick(e) {
 </script>
 
 <template>
-  <div class="w-1/2 h-2/3 flex justify-center items-center bg-gray-800 rounded-md">
+  <div class=" flex justify-center items-center bg-gray-800 rounded-md p-20">
     <form class=" flex flex-col justify-center items-center w-full h-full">
       <h1 class="text-5xl font-medium text-white">Registration Form</h1>
         <InputBox ref="validate" />
