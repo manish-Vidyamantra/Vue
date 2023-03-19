@@ -4,10 +4,10 @@ import { useCurrencyStore } from '../stores/currency'
 import { storeToRefs } from 'pinia';
 import axios from 'axios'
 
-const selected1 = ref('Select Country');
+const selected1 = ref('INR');
 const inputVal1 = ref(0);
 
-const selected2 = ref('Select Country');
+const selected2 = ref('INR');
 const inputVal2 = ref(0);
 
 
@@ -18,60 +18,52 @@ watchEffect(() => {
     console.log('selected2: ', selected2.value);
     console.log('inputVal2: ', inputVal2.value);
 
-    const options = {
-        method: 'GET',
-        url: 'https://currency-converter5.p.rapidapi.com/currency/convert',
-        params: { format: 'json', from: `${selected1.value}`, to: `${selected2.value}`, amount:`inputVal1.value` },
-        headers: {
-            'X-RapidAPI-Key': 'cb45540bfdmshbc0c65daa08c60cp1df8d5jsnc5c064fc2510',
-            'X-RapidAPI-Host': 'currency-converter5.p.rapidapi.com'
-        }
-    };
-
-    axios.request(options).then(function (response) {
-        console.log(response.data);
-    }).catch(function (error) {
-        console.error(error);
-    });
+    axios.get(`https://v6.exchangerate-api.com/v6/acd3a97e523a141b052fb7d2/latest/${selected1.value}`)
+        .then(function (response) {
+            // handle success
+            const conversionRate = response.data.conversion_rates[selected2.value];
+            inputVal2.value = conversionRate * inputVal1.value;
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
 
 
 })
 const store = useCurrencyStore();
-
 const { allCurrencies } = storeToRefs(store);
-console.log(allCurrencies.value)
+
 
 </script>
 
 <template>
-    <h1>Input Component</h1>
-
-    <div>
-        <div class="selection">
-            <select v-model="selected1">
-                <option v-for="currency in allCurrencies" :value="currency[1]"> {{ currency[1] }} {{ currency[0] }}</option>
-                <h1>{{ selected1 }}</h1>
-            </select>
+    <div class="bg-gray-400 w-[600px] h-[300px] flex justify-center items-center gap-4">
+        <div class="" >
+            <div class="selection">
+                <select class="bg-slate-300 w-[214px] border-2 border-black border-solid" v-model="selected1">
+                    <option class="" v-for="currency in allCurrencies" :selected="true" :value="currency[1]"> {{ currency[1] }} | {{ currency[0] }}</option>
+                    <h1>{{ selected1 }}</h1>
+                </select>
+            </div>
+            <div class="inputContainer">
+                <input class="w-[214px] border-2 border-black border-solid border-t-0" type="text" v-model="inputVal1">
+            </div>
         </div>
-        <div class="inputContainer">
-            <input type="text" v-model.lazy="inputVal1">
+
+        <div class="bg-gray-300">
+            <div class="selection">
+                <select class="bg-slate-300 w-[214px] border-2 border-black border-solid" v-model="selected2">
+                    <option v-for="currency in allCurrencies" :value="currency[1]"> {{ currency[1] }} | {{ currency[0] }}</option>
+                    <h1>{{ selected2 }}</h1>
+                </select>
+            </div>
+            <div class="inputContainer">
+                <input class="w-[214px] border-2 border-black border-solid border-t-0" type="text" v-model="inputVal2">
+            </div>
         </div>
     </div>
-
-    <br>
-    <br>
-
-    <div>
-        <div class="selection">
-            <select v-model="selected2">
-                <option v-for="currency in allCurrencies" :value="currency[1]"> {{ currency[1] }} {{ currency[0] }}</option>
-                <h1>{{ selected2 }}</h1>
-            </select>
-        </div>
-        <div class="inputContainer">
-            <input type="text" v-model.lazy="inputVal2">
-        </div>
-    </div>
+    
 </template>
 
 <style scoped></style>
