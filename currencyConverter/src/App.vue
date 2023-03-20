@@ -5,7 +5,7 @@ import Input from './components/Input.vue'
 
 <template>
  <div class="h-screen w-full bg-slate-300 flex justify-center items-center">
-    <Input />
+    <Input/>
  </div>   
 </template>
 

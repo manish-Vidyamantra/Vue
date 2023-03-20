@@ -12,17 +12,12 @@ const inputVal2 = ref(0);
 
 
 watchEffect(() => {
-    console.log('selected1: ', selected1.value);
     console.log('inputVal1: ', inputVal1.value);
-
-    console.log('selected2: ', selected2.value);
-    console.log('inputVal2: ', inputVal2.value);
-
     axios.get(`https://v6.exchangerate-api.com/v6/acd3a97e523a141b052fb7d2/latest/${selected1.value}`)
         .then(function (response) {
             // handle success
             const conversionRate = response.data.conversion_rates[selected2.value];
-            inputVal2.value = conversionRate * inputVal1.value;
+            inputVal2.value = Number((conversionRate * inputVal1.value).toFixed(2));
         })
         .catch(function (error) {
             // handle error

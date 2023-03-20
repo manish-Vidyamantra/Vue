@@ -2,11 +2,9 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useCurrencyStore = defineStore('currency', () => {
-  interface Currencies {
-    [key: string] : string;
-  }
+  let currencies: string[][] = [];
 
-  let currencies = [
+  currencies = [
     ['Kuwati Dinar', 'KWD'],
     ['Barhin Dinar', 'BHD'],
     ['Omani Rial', 'OMR'],
